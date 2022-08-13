@@ -59,5 +59,68 @@
 </html>
 
 
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin>
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://unpkg.com/core-js-bundle/index.js" crossorigin>
+    /* Babel v7.4.0 이후부터 Babel Polyfill은 deprecated. 대신 core-js 스크립트를 사용 */
+</script>
+<script src="unpkg.com/regenerator-runtime/runtime.js" crossorigin>
+    /* Babel v7.4.0 이후부터 Babel Polyfill은 deprecated. 대신 regenerator-runtime 스크립트를 사용 */
+</script>
+<script src="http://unpkg.com/react@17/umd/react.development.js" crossorigin>
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js" crossorigin>
+</script>
+<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin>
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.8/react-redux.js" crossorigin>
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="http://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin>
+    /*  import ReactRouterDOM, {BrowserRouter, Routes, Route, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer" crossorigin>
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+
+<script type="text/babel">
+
+const { useState, useEffect, useRef, useCallback, useMemo, Fragment } = React;
+
+
+function HelloContainer({
+  /* const {} = props */
+}) {
+
+  // JSX로 화면 만들기
+  return (
+    <div>
+        <HelloReact mesgOfProps={"Hello, Props!!!"}></HelloReact>
+    </div>
+  )
+}
+    function HelloReact() {
+        // JSX로 화면 만들기
+        return (
+            <div>
+                도전1. Hello, React!!!
+                <br />
+                도전2. {mesgOfState}
+                <br />
+                도전3. {mesgOfProps}
+            </div>
+        )
+    }
+
+ //만들 컴포넌트를 화면에 붙인다.
+    ReactDOM.render(
+        <HelloContainer></HelloContainer>, document.getElementById("app")
+    );
+
+</script>
+
 
 
