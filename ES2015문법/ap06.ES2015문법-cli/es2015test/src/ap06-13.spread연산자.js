@@ -19,3 +19,50 @@
         iterator를 생성해서 next()로 순회할 수 있는 자료구조가 이터러블
 
 */
+const cities = ['서울', '부산', '제주'];
+console.log(cities[0], cities[1], cities[2]); //'서울','부산','제주'
+console.log(...cities);
+
+const east = ['U', 'K', 'T'];
+const west = ['N', 'C', 'G'];
+
+//east.concat(west);
+const countries = [...east, ...west]; //['U', 'K', 'T', 'N', 'C', 'G']
+console.log(countries);
+console.log(east);
+console.log(west);
+
+let [city1, ...cityrest] = [...east, ...west];
+//...cityrest: rest연산자 , [...east,...west] : spread 연산자
+console.log(city1); //U    (city1은 순번이라고 생각)
+console.log(cityrest); // ['K', 'T', 'N', 'C', 'G']
+
+const car1 = {
+    type: 't1',
+    color: 'S1',
+    model: 2017
+};
+const car2 = {
+    type: 't2',
+    color: 'S2',
+    model: 2019
+};
+const { type } = car1;
+console.log(type); // t1
+const func = function ({ type }) {
+    console.log(type); // type 값은 무엇인가?
+};
+func({ ...car1, ...car2 });
+
+const moring = {
+    breakfast: '미역국',
+    lunch: '삼치구이'
+};
+
+const dinner = '스테이크';
+
+const meals = {
+    ...moring,
+    dinner //dinner: dinner
+};
+console.log(meals);
