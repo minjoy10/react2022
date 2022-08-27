@@ -13,9 +13,9 @@
 
 <body>
     <xmp>
-        render() 메서드안에 JSX를 사용하여 디자인을 연습한다.
+        JSX를 사용하여 화면 만들기를 연습한다.
 
-        render() 메서드는 한 개의 root 노드만을 갖을 수 있다.
+        JSX에서는 한 개의 root 노드만을 갖을 수 있다.
 
         아래의 태그를 사용하여 출력되게 하시오
             세종대왕
@@ -47,6 +47,59 @@
 
 </html>
 
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"  crossorigin="anonymous">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="http://unpkg.com/react@17/umd/react.development.js" crossorigin="anonymous">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin="anonymous">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.8/react-redux.js" crossorigin="anonymous">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="http://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin="anonymous">
+    /*  import ReactRouterDOM, {BrowserRouter, Routes, Route, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js" crossorigin="anonymous">
+</script>
+<script type="text/babel">
 
+    const { useState, useEffect, useRef, useCallback, useMemo, useReducer, Fragment } = React;
 
+    ReactDOM.render( <KingContainer></KingContainer>, document.getElementById('app'));
 
+    function KingContainer({ ...props }) {
+
+        // 컴포넌트의 상태값 설정
+        const [state, setState] = useState(["세종대왕", "이순신", "광개토", "왕건"]); // 상태값이 참조타입 경우
+
+        const kings = state.map( (value)=> {
+            return (
+                /* 주석 */
+                <King name={value}>
+                    {/* 주석 */}
+                </King>
+            );
+        });
+
+        // JSX로 화면 만들기
+        return (
+            <div>
+                { /* 주석 */ }
+                {kings}
+            </div>
+        )
+    }
+
+    function King({ name }) {
+      // JSX로 화면 만들기
+      return (
+        <div>
+          {name}
+        </div>
+      )
+    }
+
+</script>
