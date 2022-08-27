@@ -18,7 +18,7 @@
     /* 기본 Formatter 설정 */
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.snippetSuggestions": "top",
-    "editor.fontSize": 20,
+    "editor.fontSize": 12,
     "editor.renderWhitespace": "all",
     "editor.codeActionsOnSave": {
 
