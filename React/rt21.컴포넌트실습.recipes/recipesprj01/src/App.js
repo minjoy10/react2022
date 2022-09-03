@@ -9,12 +9,10 @@ import React, {
   forwardRef,
   useImperativeHandle
 } from "react";
-
 import "./App.css";
 import Menu from "./Menu";
 
 function App() {
-  // useState 를 사용한 컴포넌트의 상태값 설정
   const [data, setData] = useState([
     {
       name: "구운 연어",
@@ -56,12 +54,8 @@ function App() {
     }
   ]);
 
-  // JSX로 화면 만들기
-  return (
-    <div>
-      <Menu recipes={data} title="맛있는 조리법" />
-    </div>
-  );
+  // JSX
+  return <Menu recipes={data} title="맛있는 조리법" />;
 }
 
 App.propTypes = {
@@ -73,4 +67,4 @@ App.defaultProps = {
   // 인자명: () => {},
 };
 
-export default App;
+export default React.memo(App); // React.memo()는 props 미변경시 컴포넌트 리렌더링 방지 설정

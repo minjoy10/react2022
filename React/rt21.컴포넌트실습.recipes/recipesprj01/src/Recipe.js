@@ -1,11 +1,22 @@
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useReducer,
+  Fragment,
+  forwardRef,
+  useImperativeHandle
+} from "react";
+
 function Recipe({ name, ingredients, steps }) {
-  // JSX로 화면 만들기
   return (
-    <section id={name}>
+    <section id={name.toLowerCase().replace(/ /g, "-")}>
       <h1>{name}</h1>
       <ul className="ingredients">
-        {ingredients.map((ingredients, i) => (
-          <li key={i}>{ingredients.name}</li>
+        {ingredients.map((ingredient, i) => (
+          <li key={i}>{ingredient.name}</li>
         ))}
       </ul>
       <section className="instructions">
@@ -27,4 +38,4 @@ Recipe.defaultProps = {
   // 인자명: () => {},
 };
 
-export default Recipe;
+export default React.memo(Recipe); // React.memo()는 props 미변경시 컴포넌트 리렌더링 방지 설정

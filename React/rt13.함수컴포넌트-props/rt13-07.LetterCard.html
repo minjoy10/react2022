@@ -105,49 +105,60 @@
 </body>
 </html>
 
-
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"  crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
     /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
 </script>
-<script src="http://unpkg.com/react@17/umd/react.development.js" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
     /* import React, { Component, PureComponent } from 'react' */
 </script>
-<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
     /* import ReactDOM from 'react-dom' */
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.8/react-redux.js" crossorigin="anonymous">
-    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
-</script>
-<script src="http://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin="anonymous">
-    /*  import ReactRouterDOM, {BrowserRouter, Routes, Route, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom' */
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js" crossorigin="anonymous">
 </script>
 <script type="text/babel">
 
-    const { useState, useEffect, useRef, useCallback, useMemo, useReducer, Fragment } = React;
+    const { useState, useEffect, useRef, useCallback, useMemo, Fragment } = React;
 
-    function LetterCard({
-      ...props
-    }) {
-      // JSX로 화면 만들기
-      return (
-        <div>
-            LetterCard
-            <div className="letter" style={{backgroundColor: '#ff6663',}}>A</div>
-        </div>
-      )
+    // {bgcolor, letter} = props;
+    function LetterCard(props) {
+        const {bgcolor, letter, childern} = props;
+
+        // JSX로 화면 만들기
+        const style1 = {
+            backgroundColor: bgcolor,
+        }
+        const temp = props.children ? props.children : letter;
+        return (
+            <div className="letter" style={style1}>
+            {temp}
+            </div>
+        )
     }
 
-    LetterCard.propTypes = {
-      // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-      // 인자명: PropTypes.func.isRequired,
-    };
-    LetterCard.defaultProps = {
-      // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-      // 인자명: () => {},
-    };
+    function LetterContainer(props) {
 
+        // JSX로 화면 만들기
+        return (
+            <div className="App">
+                <LetterCard bgcolor={'#58B3FF'} letter={'A'}></LetterCard>
+                <LetterCard bgcolor={'#FF605F'} letter={'E'}></LetterCard>
+                <LetterCard bgcolor={'#FFD52E'} letter={'I'}>
+                    <span>I</span>
+                </LetterCard>
+                <LetterCard bgcolor={'#49DD8E'} letter={'O'}>
+                    <span>O</span>
+                </LetterCard>
+                <LetterCard bgcolor={'#AE99FF'} letter={'U'}>
+                    <span>U</span>
+                </LetterCard>
+            </div>
+        )
+    }
+
+    ReactDOM.render(
+        <LetterContainer></LetterContainer>
+        ,
+        document.getElementById("app")
+    );
 </script>
-
-

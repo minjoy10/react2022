@@ -152,3 +152,157 @@
 </body>
 
 </html>
+
+
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"  crossorigin="anonymous">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="http://unpkg.com/react@17/umd/react.development.js" crossorigin="anonymous">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin="anonymous">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.8/react-redux.js" crossorigin="anonymous">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="http://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin="anonymous">
+    /*  import ReactRouterDOM, {BrowserRouter, Routes, Route, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js" crossorigin="anonymous">
+</script>
+<script type="text/babel">
+
+    const { useState, useEffect, useRef, useCallback, useMemo, useReducer, Fragment } = React;
+
+
+    function App() {
+      // useState 를 사용한 컴포넌트의 상태값 설정
+      const [imgImage3, setImgImage3] = useState(null); // 상태값이 기본타입인 경우
+      const [img_but1, setImg_but1] = useState('../images/but1.gif'); // 상태값이 기본타입인 경우
+      const [img_swap, setImg_swap] = useState('../images/img_swap_off.png'); // 상태값이 기본타입인 경우
+
+      // 이벤트 핸들러 작성.
+      const imageclick = (e)=>{
+        // 이벤트 핸들러는 화살표 함수로 만든다
+				//e === widndow.event
+        console.log(window.event.target);
+				const href = window.event.target.href;
+
+				setImgImage3(href);
+
+				//window.event.stopPropagation();
+				window.event.preventDefault();
+      };
+			const imageover = (e)=>{
+				if(e.target.id==="but1"){
+					setImg_but1('../images/but2.gif');
+				}
+				else{
+					setImg_swap('../images/img_swap_on.png');
+				}
+      };
+			const imageout = (e)=>{
+				if(e.target.id==="but1"){
+					setImg_but1('../images/but1.gif');
+				}
+				else{
+					setImg_swap('../images/img_swap_off.png');
+				}
+      };
+
+			const spanmouseover = (e)=>{
+				//span에 mouseover 이벤트 핸들러를 작성하시오. ==> spanmouseover. background-color를 yellow로 설정
+				/*
+					css를 자바스크립트로 변경 규칙
+					1.대문자
+					2.문자열
+					3.콤마
+
+					<span style="background-color:yellow;"></span>
+				*/
+				e.target.style.backgroundColor='yellow';
+      };
+			const spanmousedown = (e)=>{
+        //span에 mousedown 이벤트 핸들러를 작성하시오. ==> spanmousedown. background-color를 blue로 설정
+				e.target.style.backgroundColor='blue';
+      };
+			const spanmouseup = (e)=>{
+        //span에 mouseup 이벤트 핸들러를 작성하시오.   ==> spanmouseup.   background-color를 pink로 설정
+				e.target.style.backgroundColor='pink';
+      };
+			const spanmouseout = (e)=>{
+        //span에 mouseout 이벤트 핸들러를 작성하시오.  ==> spanmouseout.  background-color를 red로 설정
+				e.target.style.backgroundColor='red';
+      };
+
+			const [img_select, setImg_select] = useState('../images/apple.gif'); // 상태값이 기본타입인 경우
+      // 이벤트 핸들러 작성.
+      const selectchange = (e)=>{
+				console.log(e.target.value);
+				setImg_select(e.target.value);
+
+      };
+
+      // JSX로 화면 만들기
+      return (
+        <div>
+        	<ul>
+            <li>
+                <a className="image3" href="../images/image3.jpg" onClick={imageclick}>
+                    강아지 사진
+                </a>
+            </li>
+            <li>
+                <a className="image3" href="../images/image4.jpg" onClick={imageclick}>
+                    고양이 사진
+                </a>
+            </li>
+        	</ul>
+					<img id="img2" src={imgImage3} />
+					<hr />
+
+					<img src={img_but1} id="but1"     onMouseOver={imageover} onMouseOut={imageout} />
+					<img src={img_swap} id="img-swap" onMouseOver={imageover} onMouseOut={imageout} />
+					<hr />
+
+					<span onMouseOver= {spanmouseover}
+						onMouseDown= {spanmousedown}
+						onMouseUp  = {spanmouseup}
+						onMouseOut = {spanmouseout} >
+					</span>
+					<span onMouseOver= {spanmouseover}
+						onMouseDown= {spanmousedown}
+						onMouseUp  = {spanmouseup}
+						onMouseOut = {spanmouseout} >
+					</span>
+					<span onMouseOver= {spanmouseover}
+						onMouseDown= {spanmousedown}
+						onMouseUp  = {spanmouseup}
+						onMouseOut = {spanmouseout} >
+					</span>
+					<hr />
+
+					<xmp>
+            select 에 change 이벤트 핸들러를 작성하시오.
+            change 이벤트 핸들러: selectchange
+
+            도전: 기능추가
+            "vue23-01.v-for와배열.html" 를 참조하여 option 부분을 v-for 를 사용하도록 수정하시오.
+
+					</xmp>
+					<select id="sel" onChange={selectchange}>
+							<option value="../images/strawberry.gif">딸기</option>
+							<option value="../images/banana.gif">바나나</option>
+							<option value="../images/apple.gif" selected>사과</option>
+					</select>
+
+					<img id="img" src={img_select} />
+					<hr />
+
+      </div>
+      )
+    }
+
+    ReactDOM.render(<App />, document.getElementById("app"));
+</script>

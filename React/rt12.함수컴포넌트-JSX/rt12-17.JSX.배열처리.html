@@ -12,15 +12,15 @@
 
 <body>
     <xmp>
-        JSX 에서 반복문을 사용하여 아래의 객체 배열을 출력하시오.
+        JSX 에서 반복문을 사용하여 아래의 객체 배열을 출력하시오.
         반복문을 처리할 때 반드시  key 프러퍼티 설정을 해야한다.
         왜냐하면 Virtual DOM 이 변경된 노드를 찾기 쉽게 하기 위해서.
         렌더링 속도를 빠르게 하기 위해서는 key 프로퍼티 설정이 필요
         key 프로퍼티는 Unique 해야 한다.
-        const todoList = [
-            { id:'001', taskName: "빨래하기", finished: false },
-            { id:'002', taskName: "공부하기", finished: true },
-            { id:'003', taskName: "게임하기", finished: true },
+        const todoList = [
+            { id:'001', taskName: "빨래하기", finished: false },
+            { id:'002', taskName: "공부하기", finished: true },
+            { id:'003', taskName: "게임하기", finished: true },
         ]
     </xmp>
     <hr>
@@ -30,54 +30,5 @@
 
 </html>
 
-
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"  crossorigin="anonymous">
-    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
-</script>
-<script src="http://unpkg.com/react@17/umd/react.development.js" crossorigin="anonymous">
-    /* import React, { Component, PureComponent } from 'react' */
-</script>
-<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin="anonymous">
-    /* import ReactDOM from 'react-dom' */
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.8/react-redux.js" crossorigin="anonymous">
-    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
-</script>
-<script src="http://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin="anonymous">
-    /*  import ReactRouterDOM, {BrowserRouter, Routes, Route, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom' */
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js" crossorigin="anonymous">
-</script>
-<script type="text/babel">
-
-    const { useState, useEffect, useRef, useCallback, useMemo, useReducer, Fragment } = React;
-
-    /* const {aaa, bbb, ...props} = props */
-    function TodoList({
-      ...props
-    }) {
-
-
-      // useState 를 사용한 컴포넌트의 상태값 설정
-      const [todoList, setTodoList] = useState([
-        {id:'0001',taskName:'빨래하기', finished:false},
-        {id:'0002',taskName:'공부하기', finished:true},
-        {id:'0003',taskName:'게임하기', finished:true},
-      ]); // 상태값이 기본타입인 경우
-
-      const todos = todoList.map((todo, index) => {
-        return <li key={index}>{todo.taskName}</li>
-      });
-
-      // JSX로 화면 만들기
-      return (
-        <div>
-            {todos}
-        </div>
-      )
-    }
-    ReactDOM.render(<TodoList />,document.getElementById('app'));
-
-</script>
 
 

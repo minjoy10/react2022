@@ -47,7 +47,7 @@
     <hr>
 
     <div id="app">
-        <!-- <div id="parent">
+        <div id="parent">
             I am a parent
 
             <div id="child">
@@ -59,11 +59,10 @@
                     toggle
                 </button>
             </div>
-        </div> -->
+        </div>
     </div>
 </body>
 </html>
-
 
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"  crossorigin="anonymous">
     /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
@@ -88,40 +87,41 @@
 
     ReactDOM.render(<Parent></Parent>, document.getElementById('app'));
 
-    function Parent({}) {
+    function Parent({ }) {
       // useState 를 사용한 컴포넌트의 상태값 설정
-      const [count, setCount] = useState(10); // 상태값이 기본타입인 경우
+      const [count, setCount] = useState(10);
 
       // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
       const callbackCount = useCallback( (param)=>{
-        console.log(param);
-        //debugger;
+        console.log( param); // param === 10
+        debugger;
         // state 변경
-        setCount(count + param);
-      }, [/* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */ count]);
+        setCount( count + 1 );
+      }, [/* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */ count ]);
 
-      // JSX로 화면 만들기
       return (
         <div id="parent">
             I am a parent
             <Child
-              count={count}
-              callbackCount = {callbackCount}
+                count={count}
+                callbackCount={callbackCount}
             >
             </Child>
         </div>
       )
     }
 
-    function Child({count,callbackCount,}) {
-
+    function Child({
+        count,
+        callbackCount,
+    }) {
       // 이벤트 핸들러 작성.
       const handlerParentToggleFromChild = ()=>{
         // 이벤트 핸들러는 화살표 함수로 만든다
         console.log(window.event.target);
 
-        //부모 콜백 메서드 호출
-        callbackCount(+10);
+        // 부모 콜백 메서드 호출.
+        callbackCount( +10 );
       };
 
       // JSX로 화면 만들기
@@ -132,22 +132,16 @@
             I am a child
             <br/>
             <button onClick={handlerParentToggleFromChild}>
-                    toggle
+                toggle
             </button>
         </div>
       )
     }
 
-    Child.propTypes = {
-      // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-      // 인자명: PropTypes.func.isRequired,
-    };
-    Child.defaultProps = {
-      // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-      // 인자명: () => {},
-    };
-
 </script>
+
+
+
 
 
 

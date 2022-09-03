@@ -1,15 +1,25 @@
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useReducer,
+  Fragment,
+  forwardRef,
+  useImperativeHandle
+} from "react";
 import Recipe from "./Recipe";
 
-function Menu({ title, recipes }) {
-  // JSX로 화면 만들기
+function Menu({ recipes, title }) {
   return (
     <article>
       <header>
         <h1>{title}</h1>
       </header>
       <div className="recipes">
-        {recipes.map((recipe, index) => (
-          <Recipe key={index} {...recipe} />
+        {recipes.map((recipe, i) => (
+          <Recipe key={i} {...recipe} />
         ))}
       </div>
     </article>
@@ -25,5 +35,4 @@ Menu.defaultProps = {
   // 인자명: () => {},
 };
 
-export default Menu;
-
+export default React.memo(Menu); // React.memo()는 props 미변경시 컴포넌트 리렌더링 방지 설정
