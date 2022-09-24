@@ -27,7 +27,7 @@ module.exports = {
     // "error" or 2 - turn the rule on as an error (exit code is 1 when triggered)
 
     // windows linebreaks when not in production environment
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': ['off', 'windows'],
     // suppress errors for missing 'import React' in files
     'react/react-in-jsx-scope': 'off',
     // allow jsx syntax in js files (for next.js project)
@@ -36,8 +36,8 @@ module.exports = {
     //'jsx-a11y/label-has-for': ['warn', { required: { some: ['nesting', 'id'] } }],
 
     'no-param-reassign': ['error', { props: false }],
-    'arrow-parens': ['error', 'always'], // () => {}
-    'arrow-body-style': ['error', 'always'],
+    'arrow-parens': ['warn', 'always'], // () => {}
+    'arrow-body-style': ['warn', 'always'],
     'consistent-return': 'off',
     'func-names': 'off',
     'no-shadow': 'off',
