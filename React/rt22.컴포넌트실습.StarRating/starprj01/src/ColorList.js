@@ -11,11 +11,8 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
-import Color from "./Color";
-// import { useDispatch, useSelector } from 'react-redux';
-// import ReactRouterDOM, { BrowserRouter, Routes, Route, Switch, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 
-// import { action함수 as actions, action상수 as types } from './action';
+import Color from "./Color";
 
 /* const {aaa, bbb, ...props} = props */
 function ColorList({ ...props }) {
@@ -72,8 +69,11 @@ function ColorList({ ...props }) {
 
   // JSX로 화면 만들기
   return (
-    <div class="color-list">
-      <Color></Color>
+    <div>
+      ColorList
+      <div class="color-list">
+        <Color></Color>
+      </div>
     </div>
   );
 }

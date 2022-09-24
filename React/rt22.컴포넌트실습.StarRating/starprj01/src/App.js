@@ -7,6 +7,7 @@ function App() {
         <h2>App</h2>
         <RatingContaier />
     </div>
+
   );
 }
 

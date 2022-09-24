@@ -11,17 +11,23 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
-import StarRating from "./StarRating";
-// import { useDispatch, useSelector } from 'react-redux';
-// import ReactRouterDOM, { BrowserRouter, Routes, Route, Switch, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 
-// import { action함수 as actions, action상수 as types } from './action';
+import StarRating from "./StarRating";
 
 /* const {aaa, bbb, ...props} = props */
 function Color({ ...props }) {
   // useState 를 사용한 컴포넌트의 상태값 설정
   const [변수명, set변수명] = useState("기본값"); // 상태값이 기본타입인 경우
   const [state, setState] = useState({ id: 0, name: "", age: 0 }); // 상태값이 참조타입 경우
+
+  // useReducer 를 사용한 컴포넌트의 상태값 설정. 리듀서는 현재 상태를 받아서 새 상태를 반환하는 함수다
+  const [리듀서, set리듀서] = useReducer(
+    (oldvalue, newvalue) => ({ ...oldvalue, ...newvalue }),
+    { id: 0, name: "", age: 0 }
+  ); // 리듀서(reducer) 방식의 상태값 설정
+
+  // ref 만들기.
+  // const refInput = useRef();
 
   // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
   const refIsMounted = useRef(false);
@@ -64,6 +70,7 @@ function Color({ ...props }) {
   // JSX로 화면 만들기
   return (
     <div>
+      Color
       <section class="color">
         <h1>바닷빛 파랑</h1>
         <button>X</button>

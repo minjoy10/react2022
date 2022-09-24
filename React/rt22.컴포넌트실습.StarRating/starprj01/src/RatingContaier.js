@@ -11,11 +11,8 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
-import ColorList from "./ColorList";
-// import { useDispatch, useSelector } from 'react-redux';
-// import ReactRouterDOM, { BrowserRouter, Routes, Route, Switch, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 
-// import { action함수 as actions, action상수 as types } from './action';
+import ColorList from "./ColorList";
 
 /* const {aaa, bbb, ...props} = props */
 function RatingContaier({ ...props }) {
