@@ -15,15 +15,15 @@ function Recipe({ name, ingredients, steps }) {
     <section id={name.toLowerCase().replace(/ /g, '-')}>
       <h1>{name}</h1>
       <ul className="ingredients">
-        {ingredients.map((ingredient, i) => (
-          <li key={i}>{ingredient.name}</li>
-        ))}
+        {ingredients.map((ingredient, i) => {
+          return <li key={i}>{ingredient.name}</li>;
+        })}
       </ul>
       <section className="instructions">
         <h2>조리 절차</h2>
-        {steps.map((step, i) => (
-          <p key={i}>{step}</p>
-        ))}
+        {steps.map((step, i) => {
+          return <p key={i}>{step}</p>;
+        })}
       </section>
     </section>
   );

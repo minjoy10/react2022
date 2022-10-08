@@ -1,13 +1,11 @@
 import './App.css';
-import RatingContaier from "./RatingContaier";
+import RatingContainer from './components/starrating/RatingContainer';
 
 function App() {
   return (
-    <div>
-        <h2>App</h2>
-        <RatingContaier />
+    <div className="App">
+      <RatingContainer></RatingContainer>
     </div>
-
   );
 }
 

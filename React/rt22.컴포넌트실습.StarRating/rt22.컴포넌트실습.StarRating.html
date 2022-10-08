@@ -25,12 +25,12 @@
     CRA(create-react-app) 를 사용해서 리액트 프로젝트를 만들고
     start-rating.html 에서 작성한 컴포넌트를 프로젝트에 적용하여 본다.
     * CRA 는 create react app 의 약자.
-d
+
     # 프로젝트 생성
-    $ npx create-react-app starprj03
+    $ npx create-react-app starprj01
 
     # 폴더 이동
-    $ cd starprj03
+    $ cd starprj01
 
 
     # package.json 파일이 있는지 확인
@@ -62,14 +62,14 @@ d
     $ cp ../style.css ./src/App.css
 
     # rating 컴포넌트 폴더 만들기
-    $ mkdir -p src/components/rating
+    $ mkdir -p src/components/starrating
 
     # rating 컴포넌트 관련 파일 만들기
-    $ touch src/components/rating/RatingContainer.js
-    $ touch src/components/rating/ColorList.js
-    $ touch src/components/rating/Color.js
-    $ touch src/components/rating/StarRating.js
-    $ touch src/components/rating/Star.js
+    $ touch src/components/starrating/RatingContainer.js
+    $ touch src/components/starrating/ColorList.js
+    $ touch src/components/starrating/Color.js
+    $ touch src/components/starrating/StarRating.js
+    $ touch src/components/starrating/Star.js
 
 
     # rating 컴포넌트 트리 만들기
@@ -83,7 +83,7 @@ d
 
     # src/App.js 수정
         import 설정
-            import RatingContaier from "./RatingContaier"; 추가
+            import RatingContaier from "./components/starrating/RatingContaier"; 추가
 
         App 의 JSX를 변경한다.
             <div>
@@ -94,7 +94,7 @@ d
 
     # RatingContaier 컴포넌트
         RatingContaier.js 파일 생성
-            $ touch src/RatingContaier.js
+            $ touch src/components/starrating/RatingContaier.js
 
         RatingContaier 컴포넌트 만들기
 

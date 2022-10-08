@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const StyledTodoFooter = styled.div`
+  /* styled 설정. https://styled-components.com/docs/basics#adapting-based-on-props */
+
   .clearAllContainer {
     width: 16rem;
     height: 50px;
@@ -25,12 +27,10 @@ const StyledTodoFooter = styled.div`
   .clearAllBtn {
     color: #e20303;
     display: block;
-    margin-top: 20px;
-    text-align: center;
   }
 `;
 
-function TodoFooter({ callbackClearAll }) {
+function TodoFooter({ calllbackClearAll }) {
   // useState 를 사용한 컴포넌트의 상태값 설정
   const [변수명, set변수명] = useState('기본값'); // 상태값이 기본타입인 경우
   const [state, setState] = useState({ id: 0, name: '', age: 0 }); // 상태값이 참조타입 경우
@@ -59,7 +59,7 @@ function TodoFooter({ callbackClearAll }) {
       };
     },
     [
-      /* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */
+      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
     ],
   );
 
@@ -69,7 +69,7 @@ function TodoFooter({ callbackClearAll }) {
       // state 변경
     },
     [
-      /* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */
+      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
     ],
   );
 
@@ -77,8 +77,9 @@ function TodoFooter({ callbackClearAll }) {
   const handlerClearAll = (e) => {
     // 이벤트 핸들러는 화살표 함수로 만든다
     console.log(e.target);
-    //부모 메서드 호출
-    callbackClearAll();
+    debugger;
+    // 부모 메서드 호출
+    calllbackClearAll();
   };
 
   // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
@@ -95,17 +96,13 @@ function TodoFooter({ callbackClearAll }) {
 
 TodoFooter.propTypes = {
   // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-  // 인자명: PropTypes.func.isRequired,
-  // 인자명: PropTypes.string,
-  // 인자명: PropTypes.oneOf(['News', 'Photos']),
-  callbackClearAll: PropTypes.func.isRequired,
+  calllbackClearAll: PropTypes.func.isRequired,
+  // 인자명: PropTypes.arrayOf(PropTypes.object),
 };
 TodoFooter.defaultProps = {
   // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-  // 인자명: () => {},
-  // 인자명: '',
-  // 인자명: 'News',
-  callbackClearAll: () => {},
+  calllbackClearAll: () => {},
+  // 인자명: [],
 };
 
 export default React.memo(TodoFooter); // React.memo()는 props 미변경시 컴포넌트 리렌더링 방지 설정

@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const StyledTodoInput = styled.div`
+  /* styled 설정. https://styled-components.com/docs/basics#adapting-based-on-props */
+
   input {
     border-style: groove;
     width: 200px;
@@ -31,7 +33,6 @@ const StyledTodoInput = styled.div`
     height: 50px;
     line-height: 50px;
     border-radius: 5px;
-    text-align: center;
   }
 
   .inputBox input {
@@ -45,7 +46,6 @@ const StyledTodoInput = styled.div`
     display: inline-block;
     width: 3rem;
     border-radius: 0 5px 5px 0;
-    text-align: center;
   }
 
   .addBtn {
@@ -112,9 +112,13 @@ const StyledTodoInput = styled.div`
     transform: scale(1.1);
   }
 `;
+
 function TodoInput({ callbackAddTodo }) {
   // useState 를 사용한 컴포넌트의 상태값 설정
   const [isShowModal, setIsShowModal] = useState(false); // 상태값이 기본타입인 경우
+
+  // ref 만들기.
+  const refInputTodo = useRef();
 
   // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
   const refIsMounted = useRef(false);
@@ -134,33 +138,52 @@ function TodoInput({ callbackAddTodo }) {
       };
     },
     [
-      /* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */
+      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
     ],
   );
-  const refInputTodo = useRef(false);
+
+  // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
+  const callback = useCallback(
+    (param) => {
+      // state 변경
+    },
+    [
+      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
+    ],
+  );
 
   // 이벤트 핸들러 작성.
-  const handler = () => {
+  const handlerShowModal = (e) => {
     // 이벤트 핸들러는 화살표 함수로 만든다
-    console.log(window.event.target);
-  };
-  const handlerShowModal = () => {
-    setIsShowModal(!isShowModal);
-  };
+    console.log(e.target);
+    debugger;
 
+    // isShowModal === true  ===> isShowModal = false
+    // isShowModal === false ===> isShowModal = true
+    setIsShowModal(!isShowModal);
+
+    e.stopPropagation();
+    e.preventDefault();
+  };
   const handlerAddTodo = (e) => {
-    if (!refInputTodo.current.value) {
-      handlerShowModal();
-      refInputTodo.current.focus();
-      e.stopPropagation();
-      e.preventDefault();
+    // 이벤트 핸들러는 화살표 함수로 만든다
+    console.log(e.target);
+    debugger;
+
+    // input 에 입력된 값을 가져오기
+    const value = refInputTodo.current.value;
+
+    // input 태그에 빈 문자열이 입력 되는 경우는 modal 창이 출력되게
+    if (!value || !value.trim()) {
+      // isShowModa = true;
+      setIsShowModal(true);
       return false;
     }
-    const newItem = {
-      todo: refInputTodo.current.value,
-      done: false,
-    };
-    callbackAddTodo(newItem);
+
+    // TodoContainer 의 callbackAddTodo 메서드 호출 기능 추가
+    callbackAddTodo(value);
+
+    // add 후에 input 태그의 입력 값 지우기.
     refInputTodo.current.value = '';
   };
 
@@ -172,12 +195,12 @@ function TodoInput({ callbackAddTodo }) {
           type="text"
           placeholder="Type what you have to do"
           ref={refInputTodo}
-          onKeyUp={(e) => e.keyCode === 13 && handlerAddTodo()}
+          onKeyUp={(e) => e.keyCode === 13 && handlerAddTodo(e)}
         />
         <span className="addContainer" onClick={handlerAddTodo}>
           <i aria-hidden="true" className="addBtn fas fa-plus"></i>
         </span>
-
+        {/* 조건부 렌더링 추가: isShowModal === true 이면 보이게 */}
         {isShowModal && (
           <div className="modal-mask">
             <div className="modal-wrapper">
@@ -189,7 +212,10 @@ function TodoInput({ callbackAddTodo }) {
                 <div className="modal-footer" onClick={handlerShowModal}>
                   <span>
                     할 일을 입력하세요.
-                    <i className="closeModalBtn fas fa-times" aria-hidden="true"></i>
+                    <i
+                      className="closeModalBtn fas fa-times"
+                      aria-hidden="true"
+                    ></i>
                   </span>
                 </div>
               </div>
@@ -203,17 +229,13 @@ function TodoInput({ callbackAddTodo }) {
 
 TodoInput.propTypes = {
   // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-  // 인자명: PropTypes.func.isRequired,
-  // 인자명: PropTypes.string,
-  // 인자명: PropTypes.oneOf(['News', 'Photos']),
   callbackAddTodo: PropTypes.func.isRequired,
 };
 TodoInput.defaultProps = {
   // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-  // 인자명: () => {},
-  // 인자명: '',
-  // 인자명: 'News',
-  callbackAddTodo: () => {},
+  callbackAddTodo: () => {
+    debugger;
+  },
 };
 
 export default React.memo(TodoInput); // React.memo()는 props 미변경시 컴포넌트 리렌더링 방지 설정

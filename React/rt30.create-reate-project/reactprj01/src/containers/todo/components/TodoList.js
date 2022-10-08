@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const StyledTodoList = styled.div`
+  /* styled 설정. https://styled-components.com/docs/basics#adapting-based-on-props */
+
   ul {
     list-style-type: none;
     padding-left: 0px;
@@ -61,25 +63,15 @@ const StyledTodoList = styled.div`
 `;
 
 function TodoList({ todoItems, callbackDoneToggle, callbackRemoveTodo }) {
-  // redux store 와 연동되는 경우에만 useDispatch(), useSelector() 사용
-  // const dispatch = useDispatch();
-  // const { error, isLoading, notis } = useSelector( state => state.notis );
-
-  // 페이지에 대한 경로와 query-string 정보를 추출하는 경우 useLocation() 훅 사용
-  // const { pathname, search } = useLocation();
-
-  // path 변수를 추출하는 경우 useParams() 사용. id === match.params.id */
-  // const { id } = useParams();
-
-  // 이전 경로 useHistory() 사용 */
-  // const history = useHistory();
-
   // useState 를 사용한 컴포넌트의 상태값 설정
   const [변수명, set변수명] = useState('기본값'); // 상태값이 기본타입인 경우
   const [state, setState] = useState({ id: 0, name: '', age: 0 }); // 상태값이 참조타입 경우
 
   // useReducer 를 사용한 컴포넌트의 상태값 설정. 리듀서는 현재 상태를 받아서 새 상태를 반환하는 함수다
-  const [리듀서, set리듀서] = useReducer((oldvalue, newvalue) => ({ ...oldvalue, ...newvalue }), { id: 0, name: '', age: 0 }); // 리듀서(reducer) 방식의 상태값 설정
+  const [리듀서, set리듀서] = useReducer(
+    (oldvalue, newvalue) => ({ ...oldvalue, ...newvalue }),
+    { id: 0, name: '', age: 0 },
+  ); // 리듀서(reducer) 방식의 상태값 설정
 
   // ref 만들기.
   // const refInput = useRef();
@@ -102,7 +94,7 @@ function TodoList({ todoItems, callbackDoneToggle, callbackRemoveTodo }) {
       };
     },
     [
-      /* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */
+      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
     ],
   );
 
@@ -112,38 +104,39 @@ function TodoList({ todoItems, callbackDoneToggle, callbackRemoveTodo }) {
       // state 변경
     },
     [
-      /* 조건 제어: 메서드와 연관되는 상태(변수)명들을 기술 */
+      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
     ],
   );
 
   // 이벤트 핸들러 작성.
-  const handler = () => {
+  const handler = (e) => {
     // 이벤트 핸들러는 화살표 함수로 만든다
-    console.log(window.event.target);
-  };
-  const handlerDoneToggle = (id) => {
+    console.log(e.target);
+    debugger;
+    const id = Number(e.target.dataset.id); // data-id={item.id}
+    const item = JSON.parse(e.target.dataset.item); // data-item={JSON.stringify(item)}
+    console.log(item);
     callbackDoneToggle(id);
   };
-
   const handlerRemoveTodo = (id) => {
-    // 부모 컴포넌트의 콜백 메서드 호출
+    // 이벤트 핸들러는 화살표 함수로 만든다
+    debugger;
     callbackRemoveTodo(id);
   };
+
+  // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
 
   const lis =
     todoItems &&
     todoItems.map((item) => {
+      const checked = item.done === true ? 'checked' : null;
       return (
         <li
           key={item.id}
-          className={item.done ? 'checked' : null}
+          className={checked}
           data-id={item.id}
-          onClick={(e) => {
-            // click 이벤트 취소. 버블링 방지
-            e.stopPropagation();
-
-            handlerDoneToggle(item.id);
-          }}
+          data-item={JSON.stringify(item)}
+          onClick={handler}
         >
           <i aria-hidden="true" className="checkBtn fas fa-check"></i>
           {item.todo}
@@ -151,7 +144,7 @@ function TodoList({ todoItems, callbackDoneToggle, callbackRemoveTodo }) {
             type="button"
             className="removeBtn"
             onClick={(e) => {
-              e.stopPropagation();
+              e.stopPropagation(); // 이벤트 취소. 버블링 방지
               handlerRemoveTodo(item.id);
             }}
           >
@@ -161,31 +154,26 @@ function TodoList({ todoItems, callbackDoneToggle, callbackRemoveTodo }) {
       );
     });
 
-  // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
   return (
     <StyledTodoList>
-      <ul>{lis}</ul>
+      <section>
+        <ul>{lis}</ul>
+      </section>
     </StyledTodoList>
   );
 }
 
 TodoList.propTypes = {
   // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-  // 인자명: PropTypes.func.isRequired,
-  // 인자명: PropTypes.string,
-  // 인자명: PropTypes.oneOf(['News', 'Photos']),
   todoItems: PropTypes.arrayOf(PropTypes.object),
   callbackDoneToggle: PropTypes.func.isRequired,
-  hanlderRemoveTodo: PropTypes.func.isRequired,
+  callbackRemoveTodo: PropTypes.func.isRequired,
 };
 TodoList.defaultProps = {
   // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
-  // 인자명: () => {},
-  // 인자명: '',
-  // 인자명: 'News',
   todoItems: [],
   callbackDoneToggle: () => {},
-  hanlderRemoveTodo: () => {},
+  callbackRemoveTodo: () => {},
 };
 
 export default React.memo(TodoList); // React.memo()는 props 미변경시 컴포넌트 리렌더링 방지 설정

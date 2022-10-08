@@ -9,15 +9,12 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import Menu from './Menu';
 import styled from 'styled-components';
+import Menu from './Menu';
 
+// import './App.css';
+// https://styled-components.com/docs/basics#adapting-based-on-props
 const StyledApp = styled.div`
-  #root {
-    padding: 1em;
-    background-color: #eee;
-  }
-
   article > header {
     font-family: Verdana, sans-serif;
     font-size: 1.2em;
@@ -35,21 +32,40 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  debugger;
-  const [data, setData] = useState([
+  const [data] = useState([
     {
       name: '구운 연어',
       ingredients: [
-        { name: '연어', amount: 500, measurement: '그램' },
-        { name: '잣', amount: 1, measurement: '컵' },
-        { name: '버터 상추', amount: 2, measurement: '컵' },
+        {
+          name: '연어',
+          amount: 500,
+          measurement: '그램',
+        },
+        {
+          name: '잣',
+          amount: 1,
+          measurement: '컵',
+        },
+        {
+          name: '버터 상추',
+          amount: 2,
+          measurement: '컵',
+        },
         {
           name: '옐로 스쿼시(Yellow Squash, 호박의 한 종류)',
           amount: 1,
           measurement: '개',
         },
-        { name: '올리브 오일', amount: 0.5, measurement: '컵' },
-        { name: '마늘', amount: 3, measurement: '쪽' },
+        {
+          name: '올리브 오일',
+          amount: 0.5,
+          measurement: '컵',
+        },
+        {
+          name: '마늘',
+          amount: 3,
+          measurement: '쪽',
+        },
       ],
       steps: [
         '오븐을 350도로 예열한다.',
@@ -63,11 +79,31 @@ function App() {
     {
       name: '생선 타코',
       ingredients: [
-        { name: '흰살생선', amount: 500, measurement: '그램' },
-        { name: '치즈', amount: 1, measurement: '컵' },
-        { name: '아이스버그 상추', amount: 2, measurement: '컵' },
-        { name: '토마토', amount: 2, measurement: '개(큰것)' },
-        { name: '또띠야', amount: 3, measurement: '개' },
+        {
+          name: '흰살생선',
+          amount: 500,
+          measurement: '그램',
+        },
+        {
+          name: '치즈',
+          amount: 1,
+          measurement: '컵',
+        },
+        {
+          name: '아이스버그 상추',
+          amount: 2,
+          measurement: '컵',
+        },
+        {
+          name: '토마토',
+          amount: 2,
+          measurement: '개(큰것)',
+        },
+        {
+          name: '또띠야',
+          amount: 3,
+          measurement: '개',
+        },
       ],
       steps: ['생선을 그릴에 익힌다.', '또띠야 3장 위에 생선을 얹는다.', '또띠야에 얹은 생선 위에 상추, 토마토, 치즈를 얹는다.'],
     },

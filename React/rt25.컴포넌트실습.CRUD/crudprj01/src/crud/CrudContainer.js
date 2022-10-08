@@ -1,151 +1,138 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-  useReducer,
-  Fragment,
-  forwardRef,
-  useImperativeHandle
-} from "react";
-import PropTypes, { array } from "prop-types";
-import styled, { css } from "styled-components";
-import CrudInput from "./CrudInput";
-import CrudList from "./CrudList";
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
+
+import CrudInput from './CrudInput';
+import CrudList from './CrudList';
 
 // import styled, { css } from 'styled-components';
 // https://styled-components.com/docs/basics#adapting-based-on-props
 const StyledCrudContainer = styled.div`
-    .strong {color:red; font-weight:bold; font-size:1.2em;}
-    label { display: inline-block; width: 80px;}
-    & > div { margin: 5px 0 ;}
+  .strong {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  label {
+    display: inline-block;
+    width: 80px;
+  }
+  /* #app > div { */
+  & > div {
+    margin: 5px 0;
   }
 `;
 
 function CrudContainer({}) {
   const [items, setItems] = useState([
-    { id: 1, name: "슈퍼맨", power: 100 },
-    { id: 2, name: "아쿠아맨", power: 300 },
-    { id: 3, name: "스파이더맨", power: 500 },
-    { id: 4, name: "배트맨", power: 30 }
+    { id: 1, name: '슈퍼맨', power: 100 },
+    { id: 2, name: '아쿠아맨', power: 300 },
+    { id: 3, name: '스파이더맨', power: 500 },
+    { id: 4, name: '배트맨', power: 30 },
   ]);
+
+  // ref 만들기.
+  // const refInput = useRef();
 
   // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
   const callbackDel = useCallback(
     (param) => {
       // items 배열에서 삭제. Array.filter() 를 사용한다
-      // ...생략
-      debugger;
       const newItems = items.filter((item) => {
         if (item.id === param.id) {
-          return false; //빼라
+          return false; // 빼라
         } else {
-          return true; //넣어라
+          return true; // 넣어라.
         }
       });
-
-      setItems(newItems); //items =newItems
+      setItems(newItems); // items = newItems;
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
-      items
-    ]
+      items,
+    ],
   );
 
   const callbackUp = useCallback(
     (param) => {
       //100씩 증가. Array.map() 을 사용한다
       // item.power = item.power + 100;
-      // ...생략
-      debugger;
-      const newItems = items.map((item, index, array) => {
+      const newItems = items.map((item) => {
         if (item.id === param.id) {
           item.power = item.power + 100;
         }
-        return item; //넣어라
+        return item;
       });
-      setItems(newItems); //items =newItems
+      setItems(newItems); // items = newItems;
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
-      items
-    ]
+      items,
+    ],
   );
 
   const callbackDown = useCallback(
     (param) => {
       // 50씩 감소.  Array.map() 을 사용한다
       // item.power = item.power - 50;
-      // ...생략
-      debugger;
-      const newItems = items.map((item, index, array) => {
+      const newItems = items.map((item) => {
         if (item.id === param.id) {
           item.power = item.power - 50;
         }
-        return item; //넣어라
+        return item;
       });
-      setItems(newItems); //items =newItems
+      setItems(newItems); // items = newItems;
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
-      items
-    ]
+      items,
+    ],
   );
 
   const callbackSave = useCallback(
     (newitem) => {
-      // newitem 으로 바뀐 새로운 배열 만들기. Array.map() 을 사용한다
-      // ...생략
+      // newitem 으로 바뀐 새로운 배열 만들기.
+      // Array.map() 을 사용
       const newItems = items.map((item) => {
         if (item.id === newitem.id) {
-          return newitem; //빼라
+          return newitem;
         }
-        return item; //넣어라
+        return item;
       });
-      setItems(newItems);
+      setItems(newItems); // items = newItems;
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
-      items
-    ]
+      items,
+    ],
   );
 
   const callbackAdd = useCallback(
     (newitem) => {
       // items에서 최대 id 값을 구하는 방법.
-      // 방법1. todoItems.map()과 todoItems.reduce()를 사용하여 max id를 찾는 방법
-      // items.push(param);
-      // ...생략
-      debugger;
+      // 방법1. items.map()과 items.reduce()를 사용하여 max id를 찾는 방법
       const maxid = items
         .map((item) => item.id) // [1,2,3,4]
         .reduce((pvalue, cvalue) => {
           if (pvalue > cvalue) return pvalue;
           else return cvalue;
         }, 0); // 4
+
       const obj = {
         id: maxid + 1,
         name: newitem.name,
-        power: newitem.power
+        power: newitem.power,
       };
 
-      //items.push(obj) === [...items,obj]
+      // items.push(obj) === [...items, obj]
       setItems([...items, obj]);
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
-      items
-    ]
+      items,
+    ],
   );
 
-  // 이벤트 핸들러 작성.
-  const handler = () => {
-    // 이벤트 핸들러는 화살표 함수로 만든다
-    console.log(window.event.target);
-  };
-
-  // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
+  // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
   return (
     <StyledCrudContainer>
       <h1>Creat Read Update Delete</h1>

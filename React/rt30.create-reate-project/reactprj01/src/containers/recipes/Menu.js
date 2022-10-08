@@ -18,9 +18,9 @@ function Menu({ recipes, title }) {
         <h1>{title}</h1>
       </header>
       <div className="recipes">
-        {recipes.map((recipe, i) => (
-          <Recipe key={i} {...recipe} />
-        ))}
+        {recipes.map((recipe, i) => {
+          return <Recipe key={i} {...recipe} />;
+        })}
       </div>
     </article>
   );
